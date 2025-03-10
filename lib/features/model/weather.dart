@@ -8,6 +8,7 @@ class Weather {
   final int pressure;
   final int humidity;
   final double windSpeed;
+  final int visibility;
 
   Weather({
     required this.cityName,
@@ -19,6 +20,7 @@ class Weather {
     required this.pressure,
     required this.humidity,
     required this.windSpeed,
+    required this.visibility,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class Weather {
       pressure: json["main"]["pressure"],
       humidity: json["main"]["humidity"],
       windSpeed: json["wind"]["speed"],
+      visibility: json["visibility"],
     );
   }
 }

@@ -1,8 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:weather_24/core/utils/colors.dart';
+import 'package:weather_24/core/widgets/card.dart';
 import 'package:weather_24/core/widgets/text.dart';
+import 'package:weather_24/features/view_model/weather_provider.dart';
 
 class WeatherDetails extends StatelessWidget {
   const WeatherDetails({super.key});
@@ -10,6 +13,7 @@ class WeatherDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final prov = Provider.of<WeatherProvider>(context, listen: false);
 
     return ClipRRect(
       child: BackdropFilter(
@@ -41,23 +45,23 @@ class WeatherDetails extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: 150,
-                width: size.width,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: backgroundDarkPurple.withAlpha(230),
-                  border: Border.all(color: purple),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Assistant(
-                  text: "WIND",
-                  color: purple,
-                  weight: FontWeight.w600,
-                  size: 16,
-                ),
-              ),
-              SizedBox(height: 5),
+              // Container(
+              //   height: 150,
+              //   width: size.width,
+              //   padding: const EdgeInsets.all(10),
+              //   decoration: BoxDecoration(
+              //     color: backgroundDarkPurple.withAlpha(230),
+              //     border: Border.all(color: purple),
+              //     borderRadius: BorderRadius.circular(20),
+              //   ),
+              //   child: Assistant(
+              //     text: "WIND",
+              //     color: purple,
+              //     weight: FontWeight.w600,
+              //     size: 16,
+              //   ),
+              // ),
+              // SizedBox(height: 5),
               SizedBox(
                 height: size.height - 342,
                 child: GridView.builder(
@@ -69,24 +73,9 @@ class WeatherDetails extends StatelessWidget {
                     crossAxisSpacing: 10,
                     crossAxisCount: 2,
                   ),
-                  itemBuilder: (context, index) => Container(
-                    height: 100,
-                    width: size.width,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: backgroundDarkPurple.withAlpha(230),
-                      // border: Border.all(color: purple),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Assistant(
-                      text: "WIND",
-                      color: purple,
-                      weight: FontWeight.w600,
-                      size: 16,
-                    ),
-                  ),
+                  itemBuilder: (context, index) => WeatherCard(),
                 ),
-              )
+              ),
             ],
           ),
         ),

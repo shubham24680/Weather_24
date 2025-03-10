@@ -6,6 +6,7 @@ import 'package:weather_24/features/view/details/details.dart';
 import 'package:weather_24/features/view/home/home.dart';
 
 import 'package:weather_24/core/utils/colors.dart';
+import 'package:weather_24/features/view_model/floating_button.dart';
 import 'package:weather_24/features/view_model/home_provider.dart';
 import 'package:weather_24/features/view_model/navigation_bar.dart';
 
@@ -28,6 +29,7 @@ class Layout extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Consumer<HomeProvider>(
           builder: (_, provider, __) {
             return Container(
@@ -43,6 +45,8 @@ class Layout extends StatelessWidget {
             );
           },
         ),
+        floatingActionButton: FloatingButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomBar(),
       ),
     );
