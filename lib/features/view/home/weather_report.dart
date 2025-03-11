@@ -11,29 +11,31 @@ class WeatherReport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<WeatherProvider>(context, listen: false);
+    prov.fetchWeather();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Spacer(flex: 2),
+        Spacer(),
         Assistant(
-          text: prov.weather?.cityName ?? "Las Vegas",
+          text: prov.weather?.cityName ?? "Loading City...",
           size: 34,
         ),
         Assistant(
-          text: "${prov.weather?.temperature.round() ?? "19"}°",
+          text: "${prov.weather?.temperature.round() ?? "..."}°",
           size: 96,
         ),
         Assistant(
-          text: prov.weather?.mainConditon ?? "Mostly clear",
+          text: prov.weather?.mainConditon ?? "Loading...",
           color: white.withAlpha(150),
           weight: FontWeight.w600,
         ),
         Assistant(
-          text: "H:24°  L:18°",
+          text:
+              "H:${prov.weather?.tempMax ?? "0"}°  L:${prov.weather?.tempMin ?? "100"}°",
           weight: FontWeight.w600,
         ),
-        Spacer(flex: 6),
+        Spacer(flex: 3),
         Assistant(
           text: "Swipe right for details",
           color: white.withAlpha(100),

@@ -10,12 +10,12 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       child: Consumer<HomeProvider>(
         builder: (_, provider, __) {
           return BottomAppBar(
             height: 70,
-            color: purple.withAlpha(150),
+            color: purple,
             elevation: 0,
             shape: CircularNotchedRectangle(),
             notchMargin: 6,

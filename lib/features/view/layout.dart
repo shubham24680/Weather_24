@@ -29,7 +29,7 @@ class Layout extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         body: Consumer<HomeProvider>(
           builder: (_, provider, __) {
             return Container(
@@ -45,6 +45,7 @@ class Layout extends StatelessWidget {
             );
           },
         ),
+        extendBody: true,
         floatingActionButton: FloatingButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomBar(),

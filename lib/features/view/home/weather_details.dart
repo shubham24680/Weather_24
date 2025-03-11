@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weather_24/core/utils/colors.dart';
-import 'package:weather_24/core/widgets/card.dart';
+import 'package:weather_24/core/widgets/weather_card.dart';
 import 'package:weather_24/core/widgets/text.dart';
 import 'package:weather_24/features/view_model/weather_provider.dart';
 
@@ -13,7 +13,6 @@ class WeatherDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final prov = Provider.of<WeatherProvider>(context, listen: false);
 
     return ClipRRect(
       child: BackdropFilter(
@@ -29,54 +28,60 @@ class WeatherDetails extends StatelessWidget {
               ],
             ),
           ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Column(
+          child: FutureBuilder(
+            future:
+                Provider.of<WeatherProvider>(context, listen: false).getData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(color: purple),
+                );
+              } else if (snapshot.hasError) {
+                return Assistant(text: "Error while loading...");
+              } else {
+                final prov = Provider.of<WeatherProvider>(context);
+                return Column(
                   children: [
-                    Assistant(text: "Montreal", size: 34),
-                    Assistant(
-                      text: "19° | Mostly Clear",
-                      weight: FontWeight.w600,
-                      color: white.withAlpha(150),
-                      height: 1.5,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: Column(
+                        children: [
+                          Assistant(
+                            text: prov.weather?.cityName ?? "Loading City...",
+                            size: 34,
+                          ),
+                          Assistant(
+                            text:
+                                "${prov.weather?.temperature.round() ?? "..."}° | ${prov.weather?.mainConditon ?? "Loading..."}",
+                            weight: FontWeight.w600,
+                            color: white.withAlpha(150),
+                            height: 1.5,
+                          ),
+                        ],
+                      ),
+                    ),
+                    WeatherCard(card: prov.card[prov.card.length - 1]),
+                    SizedBox(height: 5),
+                    SizedBox(
+                      height: size.height - 342,
+                      child: GridView.builder(
+                        itemCount: prov.card.length - 1,
+                        padding: const EdgeInsets.only(bottom: 10),
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 10,
+                          crossAxisCount: 2,
+                        ),
+                        itemBuilder: (context, index) => WeatherCard(
+                          card: prov.card[index],
+                        ),
+                      ),
                     ),
                   ],
-                ),
-              ),
-              // Container(
-              //   height: 150,
-              //   width: size.width,
-              //   padding: const EdgeInsets.all(10),
-              //   decoration: BoxDecoration(
-              //     color: backgroundDarkPurple.withAlpha(230),
-              //     border: Border.all(color: purple),
-              //     borderRadius: BorderRadius.circular(20),
-              //   ),
-              //   child: Assistant(
-              //     text: "WIND",
-              //     color: purple,
-              //     weight: FontWeight.w600,
-              //     size: 16,
-              //   ),
-              // ),
-              // SizedBox(height: 5),
-              SizedBox(
-                height: size.height - 342,
-                child: GridView.builder(
-                  itemCount: 4,
-                  padding: const EdgeInsets.only(bottom: 10),
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 10,
-                    crossAxisCount: 2,
-                  ),
-                  itemBuilder: (context, index) => WeatherCard(),
-                ),
-              ),
-            ],
+                );
+              }
+            },
           ),
         ),
       ),

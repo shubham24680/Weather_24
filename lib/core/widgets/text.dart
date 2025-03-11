@@ -7,13 +7,15 @@ class Assistant extends StatelessWidget {
   const Assistant({
     super.key,
     required this.text,
+    this.maxLines,
+    this.height,
+    this.color,
     this.size,
     this.weight,
-    this.color,
-    this.height,
   });
 
   final String text;
+  final int? maxLines;
   final double? height;
   final Color? color;
   final double? size;
@@ -23,6 +25,8 @@ class Assistant extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
+      maxLines: maxLines ?? 1,
       style: GoogleFonts.assistant(
         height: height ?? 1,
         color: color ?? white,
