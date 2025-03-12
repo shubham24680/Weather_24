@@ -41,6 +41,9 @@ flutter run
 ⚠ Note: Ensure you have enabled location permissions for accurate weather data.
 
 ## 🖼 Screenshots
+<p align="center"><img src="https://github.com/shubham24680/Weather_24/blob/main/assets/images/Report.jpg" alt="Home Screen" width="250">
+<img src="https://github.com/shubham24680/Weather_24/blob/main/assets/images/Detail.jpg" alt="Home Screen" width="250">
+<img src="https://github.com/shubham24680/Weather_24/blob/main/assets/images/List.jpg" alt="Home Screen" width="250"></p>
 
 ## 🌍 API Integration (OpenWeatherAPI)
 This app fetches real-time weather data using the OpenWeatherAPI.
