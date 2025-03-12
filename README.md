@@ -56,3 +56,5 @@ const String apiKey = "YOUR_API_KEY_HERE";
 ## 📞 Contact & Support
 💌 Email: subhampatel8092@gmail.com\
 🔗 LinkedIn: [Shubham Patel](https://www.linkedin.com/in/shubham-patel-5353011b9/)
+
+## 🔥 Like this project? Give it a ⭐ on GitHub! 🚀
